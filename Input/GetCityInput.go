@@ -13,6 +13,7 @@ type (
 type Model struct {
 	TextInput textinput.Model
 	Err       error
+	Submitted bool
 }
 
 func InitialModel() Model {
@@ -38,7 +39,11 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	switch msg := msg.(type) {
 	case tea.KeyMsg:
 		switch msg.Type {
-		case tea.KeyEnter, tea.KeyCtrlC, tea.KeyEsc:
+		case tea.KeyEnter:
+			m.Submitted = true
+			return m, tea.Quit
+		
+		case tea.KeyEsc, tea.KeyCtrlC:
 			return m, tea.Quit
 		}
 

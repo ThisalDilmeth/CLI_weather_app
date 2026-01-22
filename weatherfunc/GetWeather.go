@@ -6,6 +6,7 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"strings"
 )
 
 const Grey = "\033[37m"
@@ -44,6 +45,7 @@ type weathers struct {
 func Weather(city string) {
 	apiKey := os.Getenv("API_KEY")
 	url := os.Getenv("API_URL")
+	city = strings.ReplaceAll(city, " ", "+")
 	apiUrl := url + city + "&appid=" + apiKey
 
 	res, err := http.Get(apiUrl)

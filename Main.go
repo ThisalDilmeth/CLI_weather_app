@@ -20,7 +20,8 @@ func main() {
 		log.Fatal(err)
 	}
 
-	if m, ok := Fmodel.(city.Model); ok {
-		w.Weather(m.TextInput.Value())
+	if m, ok := Fmodel.(city.Model); ok && m.Submitted {
+		city := m.TextInput.Value()
+		w.Weather(city)
 	}
 }
